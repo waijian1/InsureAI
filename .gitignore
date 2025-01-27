@@ -1,2 +1,9 @@
 # Ignore Jupyter Notebook checkpoints
 **/.ipynb_checkpoints/
+
+# Ignore sqlite3 db
+*.db
+
+# Ignore all generated json & jsonl files
+*.json
+*.jsonl

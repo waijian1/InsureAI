@@ -9,8 +9,9 @@ cursor.execute('''
     CREATE TABLE IF NOT EXISTS products (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT NOT NULL,
-        type TEXT NOT NULL CHECK(type IN ('Death', 'TPD', 'Critical Illness', 'Accidental', 'Hospitalisation')),
-        descriptions TEXT NOT NULL
+        types TEXT NOT NULL CHECK(types IN ('Death', 'TPD', 'Critical Illness', 'Accidental', 'Hospitalisation')),
+        features TEXT NOT NULL,
+        company TEXT NOT NULL
     )
 ''')
 conn.commit()
@@ -22,15 +23,16 @@ product_details = {
     'B': '{"coverage": "endowment", "premium": 200, "SA":20000}',
     'C': '{"coverage": "full", "premium": 300, "SA":30000}'
 }
+company = 'InsureAI'
 
 # Insert 3 products for each type
 for t in types:
-    for label, desc in product_details.items():
+    for label, feature in product_details.items():
         name = f'{t} {label}'
         cursor.execute('''
-            INSERT INTO products (name, type, descriptions)
-            VALUES (?, ?, ?)
-        ''', (name, t, desc))
+            INSERT INTO products (name, types, features, company)
+            VALUES (?, ?, ?, ?)
+        ''', (name, t, feature, company))
 
 conn.commit()
 
