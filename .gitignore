@@ -7,3 +7,6 @@
 # Ignore all generated json & jsonl files
 *.json
 *.jsonl
+
+# Ignore all saved model
+models/
