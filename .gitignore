@@ -10,3 +10,7 @@
 
 # Ignore all saved model
 models/
+
+# Ignore fine tuned model and results
+src/llm/finetuned_deepseek_r1/
+src/llm/results/
