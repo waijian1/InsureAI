@@ -25,16 +25,23 @@ product_details = {
 }
 company = 'InsureAI'
 
-# Insert 3 products for each type
-for t in types:
-    for label, feature in product_details.items():
-        name = f'{t} {label}'
-        cursor.execute('''
-            INSERT INTO products (name, types, features, company)
-            VALUES (?, ?, ?, ?)
-        ''', (name, t, feature, company))
+# Check if products exist
+cursor.execute("SELECT COUNT(*) FROM products WHERE company = ?", (company,))
+product_count = cursor.fetchone()[0]
 
-conn.commit()
+# Insert 3 products for each type only if there are no existing records
+if product_count == 0:
+    for t in types:
+        for label, feature in product_details.items():
+            name = f'{t} {label}'
+            cursor.execute('''
+                INSERT INTO products (name, types, features, company)
+                VALUES (?, ?, ?, ?)
+            ''', (name, t, feature, company))
+    conn.commit()
+    print("Products inserted successfully.")
+else:
+    print("Products already exist. No new records inserted.")
 
 # Fetch data
 cursor.execute('SELECT * FROM products')
