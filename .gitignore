@@ -15,3 +15,4 @@ models/
 src/llm/finetuned_deepseek_r1/
 src/llm/results/
 src/llm/logs/
+src/llm/unsloth_compiled_cache/
